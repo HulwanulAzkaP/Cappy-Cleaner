@@ -19,6 +19,7 @@ Status: scanner preview 0.1.0 + installer sudah dibangun dan diverifikasi secara
 - Checkpoint tersimpan: usage **85% terpakai / 15% tersisa**, mingguan 48%. Ambang +5 baseline terlewati; checkpoint berikutnya 90%, lalu 95% (5% tersisa).
 - Checkpoint kedua: **91% terpakai / 9% tersisa**, mingguan 49%. Paket scanner preview sudah ada; dua perbaikan review sedang dalam RED (detail di bawah). Prioritas berikutnya checkpoint 95%.
 - Checkpoint terakhir yang terbaca: **94% terpakai / 6% tersisa**, mingguan 50%. Semua perubahan tersimpan sebelum sisa 5%; tidak ada pekerjaan mutasi terhadap data pengguna. Angka usage dapat berubah karena akun bersama; periksa ulang saat resume.
+- **CHECKPOINT AMBANG PENGGUNA: 95% terpakai / 5% tersisa**, mingguan 50%, dibaca setelah paket dan commit lokal selesai. Prioritas penyimpanan checkpoint sudah dilakukan. Mulai sesi berikutnya dari urutan implementasi nomor 1 (metadata identity/scope/schema version), bukan mengulang scaffolding atau scanner yang sudah lolos tes.
 
 ## Keputusan tetap
 
@@ -189,3 +190,6 @@ dotnet list src/CappyCleaner.Core package --vulnerable --include-transitive
 - Jangan jalankan installer diam-diam pada host untuk mengklaim acceptance; pakai VM disposable. Agen host saat ini bukan administrator.
 - Tidak ada service/background daemon. Tidak ada automasi jadwal. Tidak ada credential AI.
 - Branch kerja: `codex/windows-app`. Snapshot commit lokal akan dibuat untuk source dan dokumentasi; lihat `git log -1` untuk hash, jangan mengasumsikan hanya ada perubahan tanpa commit. Tidak ada push/merge/PR.
+- Snapshot source dan dokumentasi: commit `5dac363` (`feat: add native Windows scanner preview and admin installer`); checkpoint usage 95% ini disimpan dalam commit dokumentasi berikutnya. Working tree sebelum update checkpoint bersih. Artefak diabaikan Git dan berada di `artifacts/`, jangan dihapus saat resume.
+- Installer final: **47.385.340 bytes**, EXE launcher **162.816 bytes** (runtime/DLL terpisah wajib ikut), SHA256 di bagian verifikasi. Angka launcher kecil bukan ukuran seluruh aplikasi.
+- `git diff --cached --check` pada initial commit melaporkan Markdown hard line breaks bawaan `prd.md` dan blank EOF generated XAML/App; bukan warning compiler. PRD asli dipertahankan. Tidak ada klaim whitespace-check bersih.
