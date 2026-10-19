@@ -1,0 +1,16 @@
+﻿<Application x:Class="CappyCleaner.App.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:CappyCleaner.App"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <SolidColorBrush x:Key="Accent" Color="#126C73"/>
+        <Style TargetType="Window"><Setter Property="FontFamily" Value="Segoe UI"/><Setter Property="FontSize" Value="14"/><Setter Property="Foreground" Value="#213142"/><Setter Property="Background" Value="#F3F6F9"/></Style>
+        <Style TargetType="Button"><Setter Property="Padding" Value="15,9"/><Setter Property="Margin" Value="0,0,8,0"/><Setter Property="Background" Value="White"/><Setter Property="BorderBrush" Value="#C8D3DF"/><Setter Property="Cursor" Value="Hand"/></Style>
+        <Style x:Key="Primary" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}"><Setter Property="Background" Value="{StaticResource Accent}"/><Setter Property="Foreground" Value="White"/><Setter Property="BorderThickness" Value="0"/></Style>
+        <Style TargetType="TextBox"><Setter Property="Padding" Value="9"/><Setter Property="BorderBrush" Value="#C8D3DF"/><Setter Property="VerticalContentAlignment" Value="Center"/></Style>
+        <Style TargetType="ComboBox"><Setter Property="Padding" Value="9"/></Style>
+        <Style TargetType="DataGrid"><Setter Property="AutoGenerateColumns" Value="False"/><Setter Property="IsReadOnly" Value="True"/><Setter Property="CanUserAddRows" Value="False"/><Setter Property="CanUserDeleteRows" Value="False"/><Setter Property="GridLinesVisibility" Value="Horizontal"/><Setter Property="HorizontalGridLinesBrush" Value="#E7EDF2"/><Setter Property="BorderThickness" Value="0"/><Setter Property="RowHeight" Value="38"/><Setter Property="ColumnHeaderHeight" Value="38"/><Setter Property="HeadersVisibility" Value="Column"/><Setter Property="SelectionMode" Value="Single"/><Setter Property="EnableRowVirtualization" Value="True"/><Setter Property="Background" Value="White"/></Style>
+        <Style TargetType="TabItem"><Setter Property="Padding" Value="16,10"/></Style>
+    </Application.Resources>
+</Application>
