@@ -1,7 +1,7 @@
 # Cappy Cleaner — rencana implementasi dan checkpoint
 
 Terakhir diperbarui: 19 Oktober 2026 (Asia/Bangkok).
-Status: scanner preview 0.1.0 + installer sudah dibangun dan diverifikasi secara statis; MVP penuh belum selesai. Checkpoint siap dilanjutkan dari langkah pertama pada urutan implementasi.
+Status: scanner preview 0.1.1: jendela lebih lebar/maksimal, tombol Full scan Disk C:, perbaikan database scan seluruh drive. MVP penuh belum selesai.
 
 ## Cara melanjutkan
 
@@ -112,6 +112,13 @@ Status: scanner preview 0.1.0 + installer sudah dibangun dan diverifikasi secara
 - Minor review AppMutex diselesaikan dengan menghapus directive yang tidak didukung aplikasi; Restart Manager `CloseApplications` tetap dipakai installer.
 
 ## Checkpoint aktif
+
+- Pembaruan permintaan terbaru: area hasil diperlebar (jendela maksimal, lebar awal 1480, sidebar 190, margin konten 18); tombol `Full scan Disk C:` memilih C:\ dan memulai scanner yang sama, nonaktif selama scan aktif.
+- Akar warning database: database LocalAppData berada di bawah C:\, dan larangan database-di-root lama mengabaikan exclusions. Core kini mengizinkan database di dalam drive hanya jika SELURUH direktori output dikecualikan, sementara root sendiri bukan pengecualian. Junction output dan database di sumber tanpa exclusion tetap ditolak.
+- Tes regresi `AllowsSnapshotInExplicitlyExcludedDataDirectory`: awalnya RED, sekarang GREEN; bytes/file database tidak masuk hasil. `scripts/build.ps1` v0.1.1: **15/15 tes Release lolos**, build 0 warning/error; status kompilasi installer diperiksa sebelum penyerahan.
+- GitHub public dibuat atas permintaan eksplisit pengguna: **https://github.com/HulwanulAzkaP/Cappy-Cleaner**. Tidak ada `gh` CLI; pembuatan memakai GitHub REST dengan credential Git yang sudah tersimpan, credential tidak dicetak/disimpan di source. Push source dilakukan setelah commit pembaruan. Tidak ada force push.
+- Artefak versi pembaruan: `artifacts/installer/CappyCleaner-Setup-0.1.1-x64.exe` dan `artifacts/publish/win-x64/CappyCleaner.exe` bersama dependensinya. Artefak biner tidak masuk Git; repo berisi source + script build.
+- Tetap belum menguji full scan C:\ pada data nyata/VM, UI event runtime dan UAC/install; tes otomatis memakai fixture. Penolakan akses Windows tetap dicatat; full scan tidak berarti semua folder pasti dapat dibaca.
 
 - Pekerjaan aktif berikutnya: schema version/identitas volume-akun-file dan metadata coverage sebagai fondasi analisis/compare/cleanup. Paket scanner tahap A sudah siap untuk tes manual di VM.
 - Repo awal hanya berisi `prd.md` dan dokumen rancangan, keduanya belum tracked. Jangan menimpa/menghapus file pengguna.

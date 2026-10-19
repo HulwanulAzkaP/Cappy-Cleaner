@@ -11,6 +11,20 @@ public sealed class ScannerTests : IDisposable
     public void Dispose() { Microsoft.Data.Sqlite.SqliteConnection.ClearAllPools(); Directory.Delete(sandbox, true); }
 
     [Fact]
+    public async Task AllowsSnapshotInExplicitlyExcludedDataDirectory()
+    {
+        var data = Directory.CreateDirectory(Path.Combine(Root, "app-data")).FullName;
+        await File.WriteAllBytesAsync(Path.Combine(Root, "visible.bin"), new byte[29]);
+        var database = Path.Combine(data, "scan.db");
+        var result = await new DiskScanner().ScanAsync(Root, database, [data], null, default);
+        Assert.Equal(29, result.LogicalBytes);
+        Assert.Equal(1, result.Files);
+        using var store = new SnapshotStore(database);
+        Assert.DoesNotContain(store.EnumerateEntries(), e => e.Kind == "file" && PathRules.IsWithin(e.Path, data));
+        Assert.Contains(store.GetIssues(), e => e.Path == data && e.Status == "excluded");
+    }
+
+    [Fact]
     public async Task RejectsOutputThroughJunctionBeforeWritingSource()
     {
         var link = Path.Combine(sandbox, "database-alias");

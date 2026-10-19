@@ -10,7 +10,12 @@ public sealed class DiskScanner
         if (!Path.IsPathFullyQualified(root) || root.StartsWith(@"\\") || root.IndexOfAny(['*', '?']) >= 0)
             throw new ArgumentException("Root harus path absolut literal pada drive lokal.", nameof(root));
         root = Path.GetFullPath(root);
-        if (PathRules.IsWithin(database, root)) throw new ArgumentException("Database snapshot harus berada di luar lokasi yang dipindai.", nameof(database));
+        // Whole-drive scans necessarily contain LocalAppData. Permit their snapshot
+        // only when its entire directory is explicitly outside the scan coverage.
+        var databaseDirectory = Path.GetDirectoryName(Path.GetFullPath(database))!;
+        var outputExcluded = exclusions.Any(exclusion => PathRules.IsWithin(databaseDirectory, exclusion) && !PathRules.IsWithin(root, exclusion));
+        if (PathRules.IsWithin(database, root) && !outputExcluded)
+            throw new ArgumentException("Folder database harus berada di luar cakupan scan atau dikecualikan seluruhnya.", nameof(database));
         var outputParent = new DirectoryInfo(Path.GetDirectoryName(Path.GetFullPath(database))!);
         while (outputParent != null)
         {

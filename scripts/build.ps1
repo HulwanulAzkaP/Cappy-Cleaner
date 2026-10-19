@@ -23,5 +23,5 @@ try {
         if ($LASTEXITCODE -ne 0) { throw 'Kompilasi installer gagal.' }
     }
     Write-Output "Publish: $publishDirectory"
-    Write-Output 'Installer: artifacts/installer/CappyCleaner-Setup-0.1.0-x64.exe'
+    Write-Output 'Installer: artifacts/installer/CappyCleaner-Setup-0.1.1-x64.exe'
 } finally { Pop-Location }

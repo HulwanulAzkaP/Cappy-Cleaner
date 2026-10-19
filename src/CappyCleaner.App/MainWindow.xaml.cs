@@ -61,6 +61,11 @@ public partial class MainWindow : Window
         var dialog = new OpenFolderDialog { Title = "Pilih folder atau drive yang akan dipindai" };
         if (dialog.ShowDialog(this) == true) RootBox.Text = dialog.FolderName;
     }
+    private void FullScan_Click(object sender, RoutedEventArgs e)
+    {
+        if (scanCancellation != null) return;
+        RootBox.Text = @"C:\"; MainTabs.SelectedIndex = 0; Scan_Click(sender, e);
+    }
     private async void Scan_Click(object sender, RoutedEventArgs e)
     {
         if (scanCancellation != null) return;
@@ -94,7 +99,7 @@ public partial class MainWindow : Window
     }
     private void SetBusy(bool busy)
     {
-        ScanButton.IsEnabled = BrowseButton.IsEnabled = RootBox.IsEnabled = DrivePicker.IsEnabled = !busy;
+        FullScanButton.IsEnabled = ScanButton.IsEnabled = BrowseButton.IsEnabled = RootBox.IsEnabled = DrivePicker.IsEnabled = !busy;
         CancelButton.IsEnabled = busy; ExportButton.IsEnabled = !busy && summary != null;
         RefreshScanButton.IsEnabled = !busy && summary != null;
         ScanBar.Visibility = busy ? Visibility.Visible : Visibility.Collapsed; ScanBar.IsIndeterminate = busy;

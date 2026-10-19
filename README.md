@@ -21,7 +21,7 @@ Jika kebijakan mesin tidak mengizinkan script, jangan mengubah proteksi: jalanka
 Artefak lokal:
 
 - `artifacts/publish/win-x64/CappyCleaner.exe` bersama seluruh DLL/runtime dalam folder tersebut.
-- `artifacts/installer/CappyCleaner-Setup-0.1.0-x64.exe`.
+- `artifacts/installer/CappyCleaner-Setup-0.1.1-x64.exe`.
 
 Jangan menyalin EXE aplikasi sendirian; dependensinya harus ikut. Paket belum ditandatangani dengan sertifikat publisher. UAC/install/upgrade/uninstall pada VM bersih perlu pengujian rilis tersendiri.
 

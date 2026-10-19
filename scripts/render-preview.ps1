@@ -26,11 +26,11 @@ $content.Background = $window.Background
 [System.Windows.Documents.TextElement]::SetForeground($content,$window.Foreground)
 [System.Windows.Documents.TextElement]::SetFontFamily($content,$window.FontFamily)
 [System.Windows.Documents.TextElement]::SetFontSize($content,$window.FontSize)
-$content.Width = 1240; $content.Height = 820
-$content.Measure([System.Windows.Size]::new(1240,820))
-$content.Arrange([System.Windows.Rect]::new(0,0,1240,820))
+$content.Width = 1480; $content.Height = 900
+$content.Measure([System.Windows.Size]::new(1480,900))
+$content.Arrange([System.Windows.Rect]::new(0,0,1480,900))
 $content.UpdateLayout()
-$bitmap = [System.Windows.Media.Imaging.RenderTargetBitmap]::new(1240,820,96,96,[System.Windows.Media.PixelFormats]::Pbgra32)
+$bitmap = [System.Windows.Media.Imaging.RenderTargetBitmap]::new(1480,900,96,96,[System.Windows.Media.PixelFormats]::Pbgra32)
 $bitmap.Render($content)
 $encoder = [System.Windows.Media.Imaging.PngBitmapEncoder]::new()
 $encoder.Frames.Add([System.Windows.Media.Imaging.BitmapFrame]::Create($bitmap))
@@ -38,3 +38,4 @@ $stream = [IO.File]::Create($OutputFile)
 try { $encoder.Save($stream) } finally { $stream.Dispose() }
 $application.Shutdown()
 Write-Output $OutputFile
+
